@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "DistractionTax for X",
+  "short_name": "DT for X",
+  "version": "0.1.0",
+  "description": "Minimal X: no sidebar, Grok, or chat. For You and Explore cost ten Spanish words, then open for five minutes.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["*://x.com/*", "http://127.0.0.1:8765/*"],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://x.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["challenge.html"],
+      "matches": ["*://x.com/*"]
+    }
+  ]
+}

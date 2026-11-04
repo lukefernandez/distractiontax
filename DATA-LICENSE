@@ -1,0 +1,21 @@
+The wordlist data file (packages/core/src/wordlist.json) is licensed under
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0):
+https://creativecommons.org/licenses/by-sa/4.0/
+
+It is derived from two inputs:
+
+- Glosses: Wiktionary (https://en.wiktionary.org, CC BY-SA), via the
+  kaikki.org machine-readable extract produced by wiktextract
+  (https://kaikki.org/dictionary/Spanish/).
+- Frequency ranking: doozan/spanish_data
+  (https://github.com/doozan/spanish_data), which derives its counts from
+  hermitdave/FrequencyWords (https://github.com/hermitdave/FrequencyWords),
+  itself derived from OpenSubtitles2018
+  (http://opus.nlpl.eu/OpenSubtitles2018.php).
+
+Changes made: filtered to the top frequency-ranked content-word lemmas
+(nouns, verbs, adjectives, adverbs), joined each to a single short English
+gloss (skipping archaic, rare, and form-of senses), and reformatted as JSON.
+
+All source code in this repository is MIT-licensed (see LICENSE). The license
+split is intentional: CC BY-SA applies to the data file only, not to the code.
