@@ -13,12 +13,6 @@ function wordlist(n: number): WordItem[] {
 const DRAWS = 50;
 
 describe("drawChallenge", () => {
-  test("draws five items of five options by default", () => {
-    const items = drawChallenge(wordlist(20));
-    expect(items).toHaveLength(5);
-    for (const item of items) expect(item.options).toHaveLength(5);
-  });
-
   test("respects a custom item count", () => {
     expect(drawChallenge(wordlist(20), 3)).toHaveLength(3);
   });

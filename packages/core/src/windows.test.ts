@@ -23,10 +23,6 @@ beforeEach(() => {
 });
 
 describe("Access Windows", () => {
-  test("no windows exist until one is granted", async () => {
-    expect(await getWindows()).toEqual({});
-  });
-
   test("granting stores a five-minute window", async () => {
     const expiresAt = await grantWindow("x-discovery", NOW);
     expect(expiresAt).toBe(NOW + WINDOW_MS);

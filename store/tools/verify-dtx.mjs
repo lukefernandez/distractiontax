@@ -97,18 +97,18 @@ try {
   );
   await shot(page, "01-challenge.png");
 
-  const before = Date.now();
   const passed = await solveQuiz(page);
+  const passedAt = Date.now();
   ok("quiz reaches pass screen after correct answers", passed);
   await page.waitForTimeout(300);
   await shot(page, "02-passed.png");
   const windows = await readWindows(ctx, extId);
   const exp = windows["youtube.com"] ?? 0;
-  const mins = (exp - before) / 60000;
+  const mins = (exp - passedAt) / 60000;
   ok(
     "pass grants ~5-minute window for the surface",
-    mins > 4.5 && mins < 6,
-    `window=${mins.toFixed(2)}min`,
+    mins > 4.75 && mins < 5.02,
+    `window=${mins.toFixed(3)}min`,
   );
   await page.close();
 

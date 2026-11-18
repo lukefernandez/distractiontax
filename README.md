@@ -108,13 +108,13 @@ bun test
 bun run wordlist     # regenerates wordlist.json (-- --top 2500 for more words)
 ```
 
-Tests cover the pure modules: the gate policy, the quiz draw, Access
-Windows, DNR rule derivation, Challenge target resolution, Anki review
-progress, Anki mode, Blocklist parsing and editing, and the committed
-wordlist's invariants. The browser adapters are unit tested against a fake
-Chrome only for two ordering rules: the options page asks Chrome for a site
-before anything is awaited, and the background replaces its redirect rules
-in one update. Beyond those, mocked tests would keep passing if X or Chrome
+Tests cover the pure modules: the gate policy (including its guard against
+a reload loop on the Following fallback), the quiz draw, Access Windows, DNR
+rule derivation, Challenge target resolution, Anki review progress, Anki
+mode, Blocklist parsing and editing, and the committed wordlist's
+invariants. The browser adapters are unit tested against a fake Chrome only
+for one ordering rule: the background replaces its redirect rules in one
+update. Beyond that, mocked tests would keep passing if X or Chrome
 changed underneath them. Instead, `store/tools` loads the packaged zips in
 real Chromium and drives the core flows end to end (see [store/tools/README.md](./store/tools/README.md)).
 Its x.com page is a stand-in, so a change to X's own markup still needs a

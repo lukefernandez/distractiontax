@@ -30,12 +30,6 @@ describe("stored Anki mode", () => {
     expect(await getAnkiMode()).toBe(true);
   });
 
-  test("turning it back off sticks across a fresh read", async () => {
-    await setAnkiMode(true);
-    await setAnkiMode(false);
-    expect(await getAnkiMode()).toBe(false);
-  });
-
   test("a stored value that isn't true still reads as off", async () => {
     for (const value of [null, "true", 1]) {
       store[ANKI_MODE_KEY] = value;

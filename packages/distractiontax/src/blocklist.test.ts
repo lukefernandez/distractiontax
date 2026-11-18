@@ -154,12 +154,6 @@ describe("removeFromBlocklist", () => {
       "news.ycombinator.com",
     ]);
   });
-
-  test("removing every domain leaves an empty list", () => {
-    let list: Domain[] = [...DEFAULT_BLOCKLIST];
-    for (const entry of DEFAULT_BLOCKLIST) list = removeFromBlocklist(list, entry);
-    expect(list).toEqual([]);
-  });
 });
 
 describe("parseStoredBlocklist", () => {

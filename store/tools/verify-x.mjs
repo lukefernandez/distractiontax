@@ -97,17 +97,17 @@ try {
   );
   await page.screenshot({ path: `${PROOF}/challenge.png` });
 
-  const before = Date.now();
   const passed = await solveQuiz(page);
+  const passedAt = Date.now();
   ok("10 correct answers reach the pass screen", passed);
   await page.waitForURL("https://x.com/home", { timeout: 8000 }).catch(() => {});
   ok("pass returns to x.com/home", page.url() === "https://x.com/home", page.url());
   const windows = await readWindows(ctx, extId);
-  const mins = ((windows["x-discovery"] ?? 0) - before) / 60000;
+  const mins = ((windows["x-discovery"] ?? 0) - passedAt) / 60000;
   ok(
     "pass grants ~5-minute window for x-discovery",
-    mins > 4.5 && mins < 6,
-    `window=${mins.toFixed(2)}min`,
+    mins > 4.75 && mins < 5.02,
+    `window=${mins.toFixed(3)}min`,
   );
 
   await page.waitForTimeout(800);

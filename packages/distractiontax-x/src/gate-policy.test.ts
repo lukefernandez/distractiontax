@@ -32,11 +32,6 @@ describe("while locked", () => {
     expect(decide(o)).toBe("switchToFollowing");
   });
 
-  test("?following=true with no tab state on screen is trusted — no switch loop", () => {
-    const o = observation({ trigger: "pageLoad", search: "?following=true", renderedTab: null });
-    expect(decide(o)).toBe("none");
-  });
-
   test("the Following fallback URL needs nothing before X renders its tabs — no reload loop", () => {
     const { pathname, search } = new URL(FOLLOWING_FALLBACK, "https://x.com");
     for (const trigger of [

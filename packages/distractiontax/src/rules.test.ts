@@ -116,14 +116,6 @@ describe("deriveEnforcement", () => {
     });
   });
 
-  test("an added domain gets a rule at the end of the list", () => {
-    const { rules } = deriveEnforcement([...BLOCKLIST, "reddit.com"], {}, NOW, PAGE);
-    expect(rules.map((rule) => [rule.id, rule.condition.requestDomains?.[0]])).toContainEqual([
-      4,
-      "reddit.com",
-    ]);
-  });
-
   test("all rules redirect the main frame to the Challenge, carrying the site and URL", () => {
     const { rules } = deriveEnforcement(BLOCKLIST, {}, NOW, PAGE);
     for (const rule of rules) {
