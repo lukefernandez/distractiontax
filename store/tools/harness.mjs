@@ -4,6 +4,7 @@ import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { PICK_WAIT_MS } from "./pick-wait.mjs";
 
 const { chromium } = pw;
 
@@ -123,7 +124,7 @@ export async function solveQuiz(page, maxPicks = 40) {
       }
     }
     if (!picked) await options.nth(0).click();
-    await page.waitForTimeout(650);
+    await page.waitForTimeout(PICK_WAIT_MS);
   }
   return (await page.locator(".passed-title").count()) > 0;
 }

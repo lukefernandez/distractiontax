@@ -6,6 +6,7 @@ import { grantWindow, WINDOW_MINUTES } from "../windows.ts";
 import { el } from "./dom.ts";
 import { resolveTarget } from "./target.ts";
 import type { ChallengeTarget } from "./target.ts";
+import { advanceAfterHitMs, advanceAfterMissMs } from "./timing.json";
 import wordlist from "../wordlist.json";
 
 const ITEM_COUNT = 10;
@@ -269,7 +270,7 @@ function renderQuiz(app: HTMLElement, target: ChallengeTarget): void {
       setTimeout(() => {
         busy = false;
         advance();
-      }, 900);
+      }, advanceAfterMissMs);
       return;
     }
 
@@ -285,7 +286,7 @@ function renderQuiz(app: HTMLElement, target: ChallengeTarget): void {
     setTimeout(() => {
       busy = false;
       advance();
-    }, 480);
+    }, advanceAfterHitMs);
   }
 
   renderItem(false);

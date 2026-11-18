@@ -1,4 +1,4 @@
-import { decide } from "./gate-policy.ts";
+import { decide, FOLLOWING_FALLBACK } from "./gate-policy.ts";
 import type { RenderedTab, Trigger } from "./gate-policy.ts";
 import { getWindows, WINDOWS_KEY } from "../../core/src/windows.ts";
 
@@ -46,7 +46,7 @@ function enforce(trigger: Trigger, event?: Event): void {
   if (action === "switchToFollowing") {
     const following = location.pathname === "/home" ? homeTabs()[1] : undefined;
     if (following) following.click();
-    else location.replace("/home?following=true");
+    else location.replace(FOLLOWING_FALLBACK);
     return;
   }
 

@@ -24,6 +24,8 @@ export type Action =
   | "switchToFollowing"
   | { challenge: { name: string; label: string; returnUrl: string } };
 
+export const FOLLOWING_FALLBACK = "/home?following=true";
+
 const SURFACE_NAME = "For You & Explore";
 
 const FOR_YOU_CHALLENGE: Action = {

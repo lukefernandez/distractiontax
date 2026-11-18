@@ -7,11 +7,11 @@ async function prep(page) {
   await page.waitForTimeout(300);
 }
 
-async function shoot(page, path) {
+async function shoot(page, path, { y = 0, width = 1152 } = {}) {
   const cdp = await page.context().newCDPSession(page);
   const { data } = await cdp.send("Page.captureScreenshot", {
     format: "png",
-    clip: { x: 0, y: 0, width: 1152, height: 720, scale: 10 / 9 },
+    clip: { x: 0, y, width, height: (width * 5) / 8, scale: 1280 / width },
   });
   writeFileSync(path, Buffer.from(data, "base64"));
 }
@@ -44,8 +44,18 @@ async function shootBlocklist(opt, out, display) {
   await opt.locator(".site-input").blur();
   await opt.mouse.move(0, 0);
   await opt.addStyleTag({ content: "html { scrollbar-width: none; }" });
+  const width = 1312;
+  const height = (width * 5) / 8;
+  await opt.setViewportSize({ width, height: height + 60 });
   await opt.waitForTimeout(300);
-  await shoot(opt, `${out}/4-blocklist.png`);
+  const middle = await opt.evaluate(() => {
+    const top = document.querySelector(".title").getBoundingClientRect().top;
+    const bottom = [...document.querySelectorAll(".footnote")]
+      .at(-1)
+      .getBoundingClientRect().bottom;
+    return (top + bottom) / 2;
+  });
+  await shoot(opt, `${out}/4-blocklist.png`, { y: Math.round(middle - height / 2), width });
 }
 
 async function capture({ ext, port, open, reopen = open, options = shootAnkiMode }) {

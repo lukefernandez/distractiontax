@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { decide } from "./gate-policy.ts";
+import { decide, FOLLOWING_FALLBACK } from "./gate-policy.ts";
 import type { Observation } from "./gate-policy.ts";
 
 const NOW = 1_000_000;
@@ -35,6 +35,20 @@ describe("while locked", () => {
   test("?following=true with no tab state on screen is trusted — no switch loop", () => {
     const o = observation({ trigger: "pageLoad", search: "?following=true", renderedTab: null });
     expect(decide(o)).toBe("none");
+  });
+
+  test("the Following fallback URL needs nothing before X renders its tabs — no reload loop", () => {
+    const { pathname, search } = new URL(FOLLOWING_FALLBACK, "https://x.com");
+    for (const trigger of [
+      "pageLoad",
+      "spaNavigation",
+      "domChange",
+      "expiryTimer",
+      "visibilityReturn",
+      "windowChange",
+    ] as const) {
+      expect(decide(observation({ trigger, pathname, search, renderedTab: null }))).toBe("none");
+    }
   });
 
   test("the Following feed on screen needs nothing", () => {
